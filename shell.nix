@@ -6,8 +6,8 @@ let
   });
 in pkgs.mkShell {
   packages = [
-    pkgs.strata-rocm-gfx1201
     pkgs.python3
+    pkgs.python314Packages.jinja2
   ];
 
   env = {
