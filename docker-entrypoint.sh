@@ -1,8 +1,10 @@
 #!/bin/sh
-# Entry point for the Strata container. The engine is compiled during docker
-# build and lives in the image, so the first start only downloads the model.
-# The install config is kept on the /data volume so a recreated container skips
-# the setup pass and goes straight to serving.
+# Entry point for the Strata container. The engine is compiled on the first
+# start (docker build has no GPU, and the HIP build needs the card), into the
+# /opt/strata/engine volume, so a later start with that volume bound skips the
+# compile and only downloads the model. The install config is kept on the /data
+# volume so a recreated container skips the setup pass and goes straight to
+# serving.
 set -e
 cd /opt/strata || exit 1
 
@@ -19,7 +21,7 @@ GPUS="${GPUS:-}"                # "0,2" or "all": one model across several cards
 GPU="${GPU:-}"                  # one card, numbered as nvidia-smi numbers them
 LAYER_SPLIT="${LAYER_SPLIT:-}"  # with GPUS: where each later card's layers start (default: auto)
 LOW_RAM="${LOW_RAM:-auto}"      # on: the experts come from the pack's experts.bin, not from RAM
-BACKEND="${BACKEND}:-hip"
+BACKEND="${BACKEND:-hip}"
 
 # setup.py starts the newest strata-*.json it finds, so link in exactly the one
 # this family and model were set up with. The config is the recorded output of
