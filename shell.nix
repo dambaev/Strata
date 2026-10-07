@@ -7,7 +7,19 @@ let
 in pkgs.mkShell {
   packages = [
     pkgs.python3
-    pkgs.python314Packages.jinja2
+    pkgs.python313Packages.jinja2
+    pkgs.python313Packages.pip
+
+    pkgs.python313Packages.numpy
+    pkgs.python313Packages.jinja2
+    pkgs.python313Packages.regex
+    pkgs.python313Packages.pyyaml
+    pkgs.python313Packages.tqdm
+    pkgs.python313Packages.requests
+    pkgs.python313Packages.cmake
+    pkgs.python313Packages.ninja
+    pkgs.python313Packages.pillow
+    pkgs.python313Packages.psutil
   ];
 
   env = {
