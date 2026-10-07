@@ -48,7 +48,7 @@ COPY . .
 RUN python3 -m venv .venv \
     && .venv/bin/pip install --no-cache-dir --upgrade pip \
     && .venv/bin/pip install --no-cache-dir -r requirements.txt \
-    && .venv/bin/pip install "jsonschema>=4.23,<5"
+    && .venv/bin/pip install "jsonschema>=4.23,<5" \
     && chmod +x setup.sh docker-entrypoint.sh
 
 VOLUME ["/data"]
